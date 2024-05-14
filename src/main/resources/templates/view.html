@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>view</title>
+</head>
+<body>
+    <div id="view">
+        <h1>회원 상세보기</h1>
+        <ul>
+            <li>id : [[${vo.id}]]</li>
+            <li>name : [[${vo.name}]]</li>
+            <li>phone : [[${vo.phone}]]</li>
+            <li>address : [[${vo.address}]]</li>
+        </ul>
+        <th:block th:each="p : ${photos}">
+            <img src="[[${p.picture}]]" width="150px" height="200px">
+        </th:block>
+
+        <button type="button" class="btnModify">수정</button>
+        <button type="button" class="btnDelete">삭제</button>
+        <button type="button" class="btnSearch">조회</button>
+    </div>
+</body>
+</html>
