@@ -6,11 +6,21 @@
 <mapper namespace="member">
 
     <select id="search" parameterType="String" resultType="MemberVo">
-        select * from member 
+        select id, name, address1, phone, 
+            (select photo from photos where id=#{_parameter} and flag='D' limit 1) photo
+        from member 
         where name like     '%${_parameter}%'
         or    address1 like '%${_parameter}%'
         or    phone like    '%${_parameter}%'
                            
+    </select>
+    <select id="view" parameterType="String" resultType="MemberVo">
+        select id, name, address1, phone from member
+        where id=#{_parameter}
+    </select>
+    <select id="photos" parameterType="String" resultType="PhotoVo">
+        select sno, photo, flag, nal from photos
+        where id=#{_parameter}
     </select>
 
 </mapper>

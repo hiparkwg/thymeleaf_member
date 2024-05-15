@@ -19,22 +19,44 @@ public class MemberController {
         mv.setViewName("index");
         return mv;
     }
+    
+    @RequestMapping(path="/list")
+    public ModelAndView list(){
+        ModelAndView mv = new ModelAndView();
+        List<MemberVo> list = dao.search("");
+        mv.addObject("list", list);
+        mv.setViewName("list");
+        return mv;
+    }
+
+
 
     @RequestMapping(path="/search")
     public ModelAndView search(String findStr){
-        System.out.println("controll : " + findStr);
         ModelAndView mv = new ModelAndView();
         List<MemberVo> list = dao.search(findStr);
         mv.addObject("list", list);
-        mv.setViewName("index_items");
+        mv.setViewName("list");
         return mv;
     }
 
     @RequestMapping(path="/view")
     public ModelAndView view(String id){
-        System.out.println("controll : " + id);
         ModelAndView mv = new ModelAndView();
+        MemberVo vo = dao.view(id);
+
+        mv.addObject("vo", vo);
         mv.setViewName("view");
+        return mv;
+    }
+
+    @RequestMapping(path="/modify")
+    public ModelAndView modify(String id){
+        ModelAndView mv = new ModelAndView();
+        MemberVo vo = dao.view(id);
+
+        mv.addObject("vo", vo);
+        mv.setViewName("update");
         return mv;
     }
 

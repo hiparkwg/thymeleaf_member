@@ -21,4 +21,12 @@ public class MemberDao {
         return list;
     }
 
+    public MemberVo view(String id){
+        MemberVo vo = session.selectOne("member.view", id);
+        List<PhotoVo> photos = session.selectList("member.photos", id);
+        vo.setPhotos(photos);
+        return vo;
+    }
+    
+
 }

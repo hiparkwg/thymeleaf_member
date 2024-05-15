@@ -6,8 +6,8 @@ import lombok.Data;
 public class PhotoVo {
     int sno;
     String id;
-    String picture;
+    String photo;
     String flag;
-    String oriPicture;
+    String oriPhoto;
     String nal;
 }
