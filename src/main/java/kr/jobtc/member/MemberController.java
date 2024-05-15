@@ -1,6 +1,7 @@
 package kr.jobtc.member;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
@@ -75,7 +76,6 @@ public class MemberController {
             }
 
         }
-        if(vo.getPhotos() == null) System.out.println("photos is null");
         String msg = dao.register(vo);
         mv = list();
         mv.addObject("msg", msg);
@@ -102,6 +102,37 @@ public class MemberController {
         mv.setViewName("update");
         return mv;
     }
+
+    @RequestMapping(path="/modifyR")
+    public ModelAndView modifyR(
+        @RequestParam("files")  List<MultipartFile> photo, 
+        String[] delFiles,
+        @ModelAttribute  MemberVo vo){
+        ModelAndView mv = new ModelAndView();
+        List<PhotoVo> photos = new ArrayList<>();
+
+        System.out.println(Arrays.toString(delFiles));
+            
+        if(photo != null && photo.size()>0){            
+
+            for(MultipartFile f : photo){
+                if(f.getOriginalFilename().equals("")) continue;
+                PhotoVo v = new PhotoVo();
+                v.setOriPhoto(f.getOriginalFilename());
+                photos.add(v);
+            }
+
+            if(photos.size()>0){
+                vo.setPhotos(photos);
+            }
+
+        }
+        String msg = dao.modify(vo, delFiles);
+        mv = list();
+        mv.addObject("msg", msg);
+        return mv;
+    }
+
 
     @RequestMapping(path="/deleteR")
     public String deletrR(String id){

@@ -146,10 +146,26 @@ let view = (id)=>{
 }
 
 let modify=(id)=>{
-    btnUpdate = document.querySelector('.btnUpdate');
+    btnModifyR = document.querySelector('.btnModifyR');
     btnList = document.querySelector('.btnList');
 
     btnList.addEventListener('click', ()=>{
         list(id);
     });
+
+    btnModifyR.addEventListener('click', ()=>{
+        let frm = document.frm;
+
+        let frmData = new FormData(frm);
+        $.ajax({
+            url  : "/modifyR",
+            type : "POST",
+            contentType : false,
+            processData : false,
+            data : frmData,
+            success : (resp) =>{
+            list();
+            }
+        })
+    })
 }

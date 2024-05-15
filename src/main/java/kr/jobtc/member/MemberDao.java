@@ -1,5 +1,7 @@
 package kr.jobtc.member;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -72,6 +74,26 @@ public class MemberDao {
         return msg;
     }
 
+    public String modify(MemberVo vo, String[] delFiles){
+        String msg="";
+        session = new MyFactory().getSession();
+        int cnt = session.update("member.update", vo);
+
+        if(cnt>0){
+            msg="정상 수정됨";
+            if(delFiles != null){
+                List<String> delList = new ArrayList<>(Arrays.asList(delFiles));
+                session.delete("member.delete_files", delList);
+            }
+            session.commit();
+        }else{
+            msg="수정중 오류 발생";
+            session.rollback();
+        }
+        session.close();
+
+        return msg;
+    }
     
     
 
