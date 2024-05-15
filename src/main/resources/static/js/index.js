@@ -1,16 +1,64 @@
 $(function(){
     // 자동 실행
+    list();
+});
+
+function list(){
+    let findStr="";
+    if(sessionStorage.getItem("findStr") != null){
+        findStr = sessionStorage.getItem("findStr");
+    }
+
     $.ajax({
         url  : "/list",
         type : "GET",
-        data : { "findStr" : ""},
+        data : { "findStr" : findStr},
         success : (resp) =>{
-            let temp = $(resp).find('.change');
+            let temp = $(resp).find(".change");
             $('.change').html(temp);
             search();
+
         }
     })
-});
+}
+
+
+function search(){
+    let btnRegister = document.querySelector(".btnRegister")
+    let btnSearch = document.querySelector(".btnSearch")
+    let findStr = sessionStorage.getItem("findStr");
+    if(findStr != null){
+        $(".findStr").val(findStr);
+    }
+    btnRegister.addEventListener('click', ()=>{
+
+        $.ajax({
+            url  : "/register",
+            type : "GET",
+            success : (resp) =>{
+                let temp = $(resp).find('.register');
+                $('.change').html(temp);
+                register();
+            }
+        })
+    })
+
+
+    btnSearch.addEventListener("click", ()=>{
+        let findStr = $('.findStr').val();
+        sessionStorage.setItem("findStr", findStr);
+        $.ajax({
+            url  : "/search",
+            type : "GET",
+            data : { "findStr" : findStr},
+            success : (resp) =>{
+                let temp = $(resp).find('.items');
+                $('.items').html(temp);
+            }
+        })
+        
+    })
+}
 
 let registerR=()=>{
     let frm = document.frm;
@@ -42,50 +90,7 @@ function register(){
 
 }
 
-function search(){
-    let btnRegister = document.querySelector(".btnRegister")
-    let btnSearch = document.querySelector(".btnSearch")
 
-    btnRegister.addEventListener('click', ()=>{
-        $.ajax({
-            url  : "/register",
-            type : "GET",
-            success : (resp) =>{
-                let temp = $(resp).find('.register');
-                $('.change').html(temp);
-                register();
-            }
-        })
-    })
-
-
-    btnSearch.addEventListener("click", ()=>{
-        let findStr = $('.findStr').val();
-        $.ajax({
-            url  : "/search",
-            type : "GET",
-            data : { "findStr" : findStr},
-            success : (resp) =>{
-                let temp = $(resp).find('.items');
-                $('.items').html(temp);
-            }
-        })
-        
-    })
-}
-
-function list(findStr){
-    $.ajax({
-        url  : "/list",
-        type : "GET",
-        data : { "findStr" : findStr},
-        success : (resp) =>{
-            let temp = $(resp).find(".change");
-            $('.change').html(temp);
-            search();
-        }
-    })
-}
 
 let view = (id)=>{
     let cnt=0
@@ -150,7 +155,7 @@ let modify=(id)=>{
     btnList = document.querySelector('.btnList');
 
     btnList.addEventListener('click', ()=>{
-        list(id);
+        list();
     });
 
     btnModifyR.addEventListener('click', ()=>{
