@@ -40,6 +40,27 @@ public class MemberController {
         return mv;
     }
 
+    
+
+    @RequestMapping(path="/register")
+    public ModelAndView register(){
+        ModelAndView mv = new ModelAndView();
+        mv.setViewName("register");
+        return mv;
+    }
+    @RequestMapping(path="/registerR")
+    public ModelAndView registerR(MemberVo vo, String[] files){
+        ModelAndView mv = new ModelAndView();
+        System.out.println(vo.getId());
+        System.out.println(vo.getName());
+        for(String p : files){
+            System.out.println(p);
+        }
+        mv = list();
+        return mv;
+    }
+
+
     @RequestMapping(path="/view")
     public ModelAndView view(String id){
         ModelAndView mv = new ModelAndView();

@@ -14,10 +14,18 @@
                 <label>성명  <input type="text" name="name"  th:value="${vo.name}"></label><br/>
                 <label>연락처<input type="text" name="phone"  th:value="${vo.phone}"></label><br/>
                 <label>주소  <input type="text" name="address1" th:value="${vo.address1}"></label><br/>
+                <label>
+                    파일첨부
+                    <input type="file" name="photos" multiple>
+
+                </label>
+
                 <br/>
       
                 <div th:each="p : ${vo.photos}">
-                    <div th:text="${p}"></div>
+                    <div>
+                        <label><input type="checkbox" th:value="${p.photo}" th:text="${p.photo}"></label>
+                    </div>
                 </div>
                 
                 <button type="button" class="btnUpdate">수정</button>
