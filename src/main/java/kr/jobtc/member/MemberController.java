@@ -1,10 +1,15 @@
 package kr.jobtc.member;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 @RestController
@@ -49,14 +54,31 @@ public class MemberController {
         return mv;
     }
     @RequestMapping(path="/registerR")
-    public ModelAndView registerR(MemberVo vo, String[] files){
+    public ModelAndView registerR(
+        @RequestParam("files")  List<MultipartFile> photo, 
+        @ModelAttribute  MemberVo vo){
         ModelAndView mv = new ModelAndView();
-        System.out.println(vo.getId());
-        System.out.println(vo.getName());
-        for(String p : files){
-            System.out.println(p);
+        List<PhotoVo> photos = new ArrayList<>();
+            
+        if(photo != null && photo.size()>0){            
+
+            for(MultipartFile f : photo){
+                if(f.getOriginalFilename().equals("")) continue;
+                PhotoVo v = new PhotoVo();
+                v.setOriPhoto(f.getOriginalFilename());
+                photos.add(v);
+                System.out.println("file name :" + f.getOriginalFilename());
+            }
+
+            if(photos.size()>0){
+                vo.setPhotos(photos);
+            }
+
         }
+        if(vo.getPhotos() == null) System.out.println("photos is null");
+        String msg = dao.register(vo);
         mv = list();
+        mv.addObject("msg", msg);
         return mv;
     }
 
@@ -81,5 +103,9 @@ public class MemberController {
         return mv;
     }
 
-
+    @RequestMapping(path="/deleteR")
+    public String deletrR(String id){
+        String msg = dao.delete(id);
+        return msg;
+    }
 }

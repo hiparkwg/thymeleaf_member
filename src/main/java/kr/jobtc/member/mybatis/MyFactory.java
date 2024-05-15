@@ -8,20 +8,20 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
 public class MyFactory {
-    public static SqlSession session;
+    public SqlSession session;
 
-    static{
+    public MyFactory(){
        try{
         Reader reader = 
             Resources.getResourceAsReader("kr/jobtc/member/mybatis/config.xml");
         SqlSessionFactory factory = 
             new SqlSessionFactoryBuilder().build(reader);
-        session = factory.openSession();            
+        session = factory.openSession();    
        }catch(Exception ex){
         ex.printStackTrace();
        } 
     }
-    public static SqlSession getSession(){
+    public SqlSession getSession(){
         return session;
     }
 }

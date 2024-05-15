@@ -9,14 +9,14 @@
     <div>
         <div class="register">
             <h3>회원 등록</h3>
-            <form name="frm" method="post" class="frm">
+            <form name="frm" method="post" class="frm" enctype="multipart/form-data">
                 <label>아이디<input type="text" name="id" ></label><br/>
                 <label>성명  <input type="text" name="name" ></label><br/>
                 <label>연락처<input type="text" name="phone"></label><br/>
                 <label>주소  <input type="text" name="address1"></label><br/>
                 <label>
                     파일첨부
-                    <input type="file" name="files" multiple >
+                    <input type="file" name="files" multiple/>
                 </label>
                 <br/><br/>
                 <button type="button" class="btnRegisterR">저장</button>

@@ -6,7 +6,6 @@ $(function(){
         data : { "findStr" : ""},
         success : (resp) =>{
             let temp = $(resp).find('.change');
-            console.log('search', temp)
             $('.change').html(temp);
             search();
         }
@@ -15,14 +14,16 @@ $(function(){
 
 let registerR=()=>{
     let frm = document.frm;
-    let frmData = $(frm).serialize();
-    alert(frmData)
+
+    let frmData = new FormData(frm);
     $.ajax({
         url  : "/registerR",
         type : "POST",
-        data : frm,
+        contentType : false,
+        processData : false,
+        data : frmData,
         success : (resp) =>{
-            list();
+           list();
         }
     })
 }
@@ -66,7 +67,6 @@ function search(){
             data : { "findStr" : findStr},
             success : (resp) =>{
                 let temp = $(resp).find('.items');
-                console.log('search', temp)
                 $('.items').html(temp);
             }
         })
@@ -88,36 +88,61 @@ function list(findStr){
 }
 
 let view = (id)=>{
+    let cnt=0
+    console.log("view..."+ (cnt++))
     let param = "id=" + id;
-    $('.change').load("/view", param, ()=>{
-        
-        let btnModify = document.querySelector(".btnModify")
-        let btnDelete = document.querySelector(".btnDelete")
-        let btnList = document.querySelector(".btnList")
 
-        btnList.addEventListener("click", ()=>{
-            console.log("btnList...")
-            list(id);
-        })
+    $.ajax({
+        url : "/view",
+        type : "GET",
+        data : {"id" : id},
+        success : (resp)=>{
+            let temp = $(resp).find('.view');
+            $('.change').html(temp);
 
-        btnModify.addEventListener('click', ()=>{
-            $.ajax({
-                url  : "/modify",
-                type : "GET",
-                data : { "id" : id},
-                success : (resp) =>{
-                    let temp = $(resp).find(".update");
-                    $('.change').html(temp);
-                    modify(id);
-                }
-            })
-        })
-
-        btnDelete.addEventListener('click', ()=>{
-            console.log('delete')
-        })
+            let btnModify = document.querySelector(".btnModify")
+            let btnDelete = document.querySelector(".btnDelete")
+            let btnList = document.querySelector(".btnList")
     
+            btnList.addEventListener("click", ()=>{
+                list(id);
+            })
+    
+            btnModify.addEventListener('click', ()=>{
+                $.ajax({
+                    url  : "/modify",
+                    type : "GET",
+                    data : { "id" : id},
+                    success : (resp) =>{
+                        let temp = $(resp).find(".update");
+                        $('.change').html(temp);
+                        modify(id);
+                    }
+                })
+            })
+    
+            btnDelete.addEventListener('click', ()=>{
+                console.log('delete')
+                let yn=confirm('정말?');
+                if( !yn ) return;
+    
+                $.ajax({
+                    url  : "/deleteR",
+                    type : "GET",
+                    data : { "id" : id},
+                    success : (resp) =>{
+                        list("")
+                        setTimeout(()=>{
+                            alert(resp)
+                        }  , 200);
+                    }
+                })
+            })
+    
+        }
+
     });
+
 }
 
 let modify=(id)=>{
