@@ -44,15 +44,14 @@
             </foreach>
         </if>
     </update>
+
+
     <delete id="delete_files" parameterType="java.util.List">
         delete from photos where oriPhoto in
         <foreach collection="list" item="file"  open="(" close=")" separator=",">
             #{file}
         </foreach>
     </delete>
-
-
-
     <delete id="delete_member" parameterType="String">
         delete from member where id=#{_parameter}
     </delete>
