@@ -63,7 +63,7 @@ public class MemberController {
 
         }
         String msg = dao.register(vo);
-        mv = list("");
+        mv = search("");
         mv.addObject("msg", msg);
         return mv;
     }

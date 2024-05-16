@@ -6,7 +6,7 @@
 <mapper namespace="member">
 
     <select id="search" parameterType="String" resultType="MemberVo">
-        select id, name, address1, phone  from member 
+        select id, name, address1, phone, photo  from member 
         where name like     '%${_parameter}%'
         or    address1 like '%${_parameter}%'
         or    phone like    '%${_parameter}%'
@@ -23,8 +23,8 @@
 
 
     <insert id="register" parameterType="MemberVo">
-        insert into member(id, name, address1, phone)
-        values(#{id}, #{name}, #{address1}, #{phone});
+        insert into member(id, name, address1, phone, photo)
+        values(#{id}, #{name}, #{address1}, #{phone}, #{photo});
 
         <if test="photos != null ">
             insert into photos(id, oriPhoto) values

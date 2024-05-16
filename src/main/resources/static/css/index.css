@@ -37,10 +37,17 @@ body{
     display : inline-block;
 }
 
-.list .id{ width: 120px;}
-.list .name{ width:150px;}
-.list .address1{ width:360px;}
+.list .id{ width: 100px;}
+.list .name{ width:130px;}
+.list .address1{ width:330px;}
 .list .phone{ width:150px;}
+.list .photo{ 
+    width:150px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
 
 .list .item:hover{
     background-color: #555;

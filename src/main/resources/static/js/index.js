@@ -92,6 +92,33 @@ let registerR=()=>{
     })
 }
 
+let fileChange=(tag)=>{
+    let repre=document.querySelector(".repre");
+    repre.innerHTML = '';//하위태그 모두 삭제
+    let legend = document.createElement("legend");
+    legend.textContent="대표이미지 선택";
+    repre.appendChild(legend);
+
+    for(f of tag.files){
+        console.log(f.name)
+        let chkbox = document.createElement("input");
+        let label = document.createElement("label");
+        let br = document.createElement("br");
+
+        chkbox.type="radio";
+        chkbox.name="photo";
+        chkbox.value = f.name;
+
+        label.textContent=f.name;
+        label.prepend(chkbox);
+
+        repre.appendChild(label);
+        repre.appendChild(br)
+    }
+
+}
+
+
 
 let view = (id)=>{
     $.ajax({
