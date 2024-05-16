@@ -24,14 +24,6 @@ public class MemberController {
         return mv;
     }
 
-    @RequestMapping(path = "/list")
-    public ModelAndView list(String findStr) {
-        ModelAndView mv = new ModelAndView();
-        List<MemberVo> list = dao.search(findStr);
-        mv.addObject("list", list);
-        mv.setViewName("list");
-        return mv;
-    }
 
     @RequestMapping(path = "/search")
     public ModelAndView search(String findStr) {

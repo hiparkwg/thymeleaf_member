@@ -10,7 +10,7 @@ function list(){
     }
 
     $.ajax({
-        url  : "/list",
+        url  : "/search",
         type : "GET",
         data : { "findStr" : findStr},
         success : (resp) =>{
