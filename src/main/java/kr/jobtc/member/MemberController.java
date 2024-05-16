@@ -24,7 +24,6 @@ public class MemberController {
         return mv;
     }
 
-
     @RequestMapping(path = "/search")
     public ModelAndView search(String findStr) {
         ModelAndView mv = new ModelAndView();
@@ -115,7 +114,7 @@ public class MemberController {
 
         }
         String msg = dao.modify(vo, delFiles);
-        mv = list("");
+        mv = search("");
         mv.addObject("msg", msg);
         return mv;
     }
