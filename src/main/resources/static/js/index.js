@@ -60,6 +60,22 @@ function search(){
     })
 }
 
+
+
+function register(){
+    
+    let btnRegisterR = document.querySelector('.btnRegisterR');
+    let btnList = document.querySelector('.btnList');
+
+    btnRegisterR.addEventListener('click', ()=>{
+        registerR();
+    });
+    btnList.addEventListener('click', ()=>{
+        list();
+    });
+
+}
+
 let registerR=()=>{
     let frm = document.frm;
 
@@ -76,27 +92,8 @@ let registerR=()=>{
     })
 }
 
-function register(){
-    
-    let btnRegisterR = document.querySelector('.btnRegisterR');
-    let btnList = document.querySelector('.btnList');
-
-    btnRegisterR.addEventListener('click', ()=>{
-        registerR();
-    });
-    btnList.addEventListener('click', ()=>{
-        list();
-    });
-
-}
-
-
 
 let view = (id)=>{
-    let cnt=0
-    console.log("view..."+ (cnt++))
-    let param = "id=" + id;
-
     $.ajax({
         url : "/view",
         type : "GET",
@@ -173,4 +170,17 @@ let modify=(id)=>{
             }
         })
     })
+}
+
+
+/* 파일 삭제 체크 박스가 체크 되었을 때 */
+function checkUp(box){
+    let p = box.parentNode;
+    if(box.checked){
+        p.style.textDecoration="line-through"
+        p.style.color="#f00"
+    }else{
+        p.style.textDecoration="none"
+        p.style.color=""
+    }
 }

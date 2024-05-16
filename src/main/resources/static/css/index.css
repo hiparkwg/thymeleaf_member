@@ -1,5 +1,101 @@
-#index .item:hover{
-    background-color: #ccc;
-    cursor: pointer;
-    
+*{
+    box-sizing: border-box;
 }
+body{
+    background-color: #444;
+    color:#eee;
+}
+
+#member{
+    width:900px;
+    margin:40px auto;
+}
+#member>h1{
+ text-align: center;   
+}
+
+/* list ------------- */
+.list .frm{
+    text-align: right;
+}
+.list .frm>*{
+    height:24px;
+    vertical-align: middle;
+}
+
+.list *{
+    line-height: 1.5em;
+}
+
+.list>.title{
+    margin-top:3px;
+    border-top : 2px solid #888;
+    border-bottom : 2px solid #888;
+    padding:2px;
+}
+.list span{
+    display : inline-block;
+}
+
+.list .id{ width: 120px;}
+.list .name{ width:150px;}
+.list .address1{ width:360px;}
+.list .phone{ width:150px;}
+
+.list .item:hover{
+    background-color: #555;
+    cursor: pointer;
+}
+
+.list .item:last-child{
+    border-bottom:1px solid #ccc;
+}
+
+/* register --------------------------- */
+.register{
+    width:400px;
+    margin:20px auto;
+    border:0px solid #999;
+    line-height: 1.5em;
+}
+
+
+/* view --------------------------- */
+.view{
+    width:400px;
+    margin:20px auto;
+    border:0px solid #999;
+    line-height: 1.5em;
+}
+
+
+
+/* update --------------------------- */
+.update{
+    width:400px;
+    margin:20px auto;
+    border:0px solid #999;
+    line-height: 1.5em;
+}
+
+.update .chk:checked{
+    color:#f00;
+    text-decoration:line-through;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

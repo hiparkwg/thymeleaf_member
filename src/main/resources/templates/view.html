@@ -7,22 +7,23 @@
 </head>
 <body>
     <div>
-    <div class="view">
-        <h3>회원 상세보기</h3>
-        <ul>
-            <li>id : [[${vo.id}]]</li>
-            <li>name : [[${vo.name}]]</li>
-            <li>phone : [[${vo.phone}]]</li>
-            <li>address : [[${vo.address1}]]</li>
-        </ul>
-        <th:block th:each="p : ${vo.photos}">
-            <img src="[[${p.photo}]]" width="150px" height="200px">
-        </th:block>
-        
-        <br/>
-        <button type="button" class="btnModify">수정</button>
-        <button type="button" class="btnDelete">삭제</button>
-        <button type="button" class="btnList">목록</button>
-    </div></div>
+        <div class="view">
+            <h3>회원 상세보기</h3>
+            <ul>
+                <li>id : [[${vo.id}]]</li>
+                <li>name : [[${vo.name}]]</li>
+                <li>phone : [[${vo.phone}]]</li>
+                <li>address : [[${vo.address1}]]</li>
+            </ul>
+            <th:block th:each="p : ${vo.photos}">
+                <img src="[[${p.photo}]]" width="150px" height="200px">
+            </th:block>
+            
+            <br/>
+            <button type="button" class="btnModify">수정</button>
+            <button type="button" class="btnDelete">삭제</button>
+            <button type="button" class="btnList">목록</button>
+        </div>
+    </div>
 </body>
 </html>
