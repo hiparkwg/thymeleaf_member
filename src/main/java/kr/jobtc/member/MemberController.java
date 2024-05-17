@@ -47,7 +47,7 @@ public class MemberController {
         ModelAndView mv = new ModelAndView();
         List<PhotoVo> photos = new ArrayList<>();
 
-        if (photo != null && photo.size() > 0) {
+        if (photo != null ) {
 
             for (MultipartFile f : photo) {
                 if (f.getOriginalFilename().equals(""))

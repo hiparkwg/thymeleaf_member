@@ -15,9 +15,11 @@
                 <li>phone : [[${vo.phone}]]</li>
                 <li>address : [[${vo.address1}]]</li>
             </ul>
-            <th:block th:each="p : ${vo.photos}">
-                <img src="[[${p.photo}]]" width="150px" height="200px">
-            </th:block>
+            <div class="photo_list">
+                <div th:each="p : ${vo.photos}" >
+                    <img src="[[${p.photo}]]" width="150px" height="200px" onclick="change(this)">
+                </div>
+            </div>
             
             <br/>
             <button type="button" class="btnModify">수정</button>

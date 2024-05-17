@@ -96,7 +96,7 @@ let fileChange=(tag)=>{
     let repre=document.querySelector(".repre");
     repre.innerHTML = '';//하위태그 모두 삭제
     let legend = document.createElement("legend");
-    legend.textContent="대표이미지 선택";
+    legend.textContent="대표이미지를 선택해 주세요";
     repre.appendChild(legend);
 
     for(f of tag.files){
@@ -117,7 +117,15 @@ let fileChange=(tag)=>{
     }
 
 }
-
+let oldTag;
+let change =(tag)=>{
+    if(oldTag != null){
+        oldTag.style.border="";
+    }
+    tag.style.border="5px solid #aaa";
+    oldTag = tag;
+    console.log(tag.src)
+}
 
 
 let view = (id)=>{
