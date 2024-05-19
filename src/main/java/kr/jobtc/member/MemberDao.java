@@ -2,7 +2,9 @@ package kr.jobtc.member;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Component;
@@ -31,6 +33,25 @@ public class MemberDao {
         vo.setPhotos(photos);
         session.close();
         return vo;
+    }
+
+    public String changePhoto(String id, String photo){
+        Map<String, String> map = new HashMap<>();
+        map.put("id", id);
+        map.put("photo", photo);
+        session = new MyFactory().getSession();
+        String msg = "";
+        int cnt = session.update("member.change_photo", map);
+        if(cnt>0){
+            msg = "대표 이미지가 수정되었습니다.";
+            session.commit();
+        }else{
+            msg = "대표 이미지 수정중 오류 발생";
+            session.rollback();
+        }
+
+        session.close();
+        return msg;
     }
 
     public String register(MemberVo vo){

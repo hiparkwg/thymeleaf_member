@@ -78,6 +78,12 @@ public class MemberController {
         return mv;
     }
 
+    @RequestMapping(path = "/changePhoto")
+    public String changePhoto(String id, String photo){
+        String msg = dao.changePhoto(id, photo);
+        return msg;
+    }
+
     @RequestMapping(path = "/modify")
     public ModelAndView modify(String id) {
         ModelAndView mv = new ModelAndView();

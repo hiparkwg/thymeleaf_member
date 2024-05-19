@@ -117,16 +117,16 @@ let fileChange=(tag)=>{
     }
 
 }
-let oldTag;
-let change =(tag)=>{
-    if(oldTag != null){
-        oldTag.style.border="";
-    }
-    tag.style.border="5px solid #aaa";
-    oldTag = tag;
-    console.log(tag.src)
-}
 
+let repreImage="";
+let change = (tag, photo)=>{
+    let allImg = document.querySelectorAll(".photo_list img");
+    allImg.forEach( (img)=>{
+        img.style.border="5px solid #444";
+    })
+    tag.style.border="5px solid #aaa";
+    repreImage = photo;
+}
 
 let view = (id)=>{
     $.ajax({
@@ -135,16 +135,30 @@ let view = (id)=>{
         data : {"id" : id},
         success : (resp)=>{
             let temp = $(resp).find('.view');
+
             $('.change').html(temp);
 
             let btnModify = document.querySelector(".btnModify")
             let btnDelete = document.querySelector(".btnDelete")
+            let btnChangePhoto = document.querySelector(".btnChangePhoto")
             let btnList = document.querySelector(".btnList")
     
             btnList.addEventListener("click", ()=>{
                 list(id);
             })
-    
+
+            // 선택된 대표 이미지 정보만 수정
+            btnChangePhoto.addEventListener('click', ()=>{
+                $.ajax({
+                    url     : "/changePhoto",
+                    type    : "GET",
+                    data    : {"id" : id , "photo" : repreImage},
+                    success : (resp)=>{
+                        alert(resp);
+                    }
+                })
+            });
+
             btnModify.addEventListener('click', ()=>{
                 $.ajax({
                     url  : "/modify",

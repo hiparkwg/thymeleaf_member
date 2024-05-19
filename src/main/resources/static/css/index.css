@@ -90,8 +90,12 @@ img{
     height:100%;
 }
 
-.view .photo_list div{
+.view .photo_list img{
     border:5px solid #444;
+}
+
+.view .photo_list .repre{
+    border:5px solid #aaa;
 }
 
 /* update --------------------------- */

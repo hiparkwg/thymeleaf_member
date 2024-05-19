@@ -17,13 +17,17 @@
             </ul>
             <div class="photo_list">
                 <div th:each="p : ${vo.photos}" >
-                    <img src="[[${p.photo}]]" width="150px" height="200px" onclick="change(this)">
+                    <img src="${p.photo}" width="150px" height="200px" 
+                        th:class="${(vo.photo eq p.oriPhoto)? 'repre':''}"
+                        th:onClick="change(this, [[${p.oriPhoto}]])">
                 </div>
             </div>
             
             <br/>
             <button type="button" class="btnModify">수정</button>
-            <button type="button" class="btnChangePhoto">대표이미지 수정</button>
+            <button type="button" class="btnChangePhoto" title="이미지를 선택한 후 클릭하세~">
+                대표이미지 수정
+            </button>
             <button type="button" class="btnDelete">삭제</button>
             <button type="button" class="btnList">목록</button>
         </div>

@@ -13,7 +13,7 @@
                            
     </select>
     <select id="view" parameterType="String" resultType="MemberVo">
-        select id, name, address1, phone from member
+        select id, name, address1, phone, photo from member
         where id=#{_parameter}
     </select>
     <select id="photos" parameterType="String" resultType="PhotoVo">
@@ -43,6 +43,10 @@
                 (#{id}, #{p.oriPhoto})
             </foreach>
         </if>
+    </update>
+
+    <update id="change_photo" parameterType="Map">
+        update member set  photo=#{photo} where id=#{id}
     </update>
 
 
