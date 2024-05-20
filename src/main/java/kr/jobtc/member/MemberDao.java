@@ -1,5 +1,6 @@
 package kr.jobtc.member;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -77,6 +78,15 @@ public class MemberDao {
 
         int cnt = session.delete("member.delete_member", id);
         if(cnt>0){
+            //삭제할 파일명 가져오기
+            List<PhotoVo> delPhotos = session.selectList("member.photos", id);
+            if(delPhotos != null){
+                for(PhotoVo v : delPhotos){
+                    File delFile = new File(MemberController.uploadPath + v.getPhoto());
+                    if(delFile.exists()) delFile.delete();
+                }
+            }
+
             System.out.println("삭제 정상...");
             session.delete("member.delete_photos", id);
         }
@@ -105,6 +115,12 @@ public class MemberDao {
             if(delFiles != null){
                 List<String> delList = new ArrayList<>(Arrays.asList(delFiles));
                 session.delete("member.delete_files", delList);
+
+                //파일 삭제
+                for(String delPhoto : delFiles){
+                    File delFile = new File(MemberController.uploadPath+ delPhoto);
+                    if(delFile.exists()) delFile.delete();
+                }
             }
             session.commit();
         }else{

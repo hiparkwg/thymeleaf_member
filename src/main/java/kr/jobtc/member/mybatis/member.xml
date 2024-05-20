@@ -27,9 +27,9 @@
         values(#{id}, #{name}, #{address1}, #{phone}, #{photo});
 
         <if test="photos != null ">
-            insert into photos(id, oriPhoto) values
+            insert into photos(id, oriPhoto, photo) values
             <foreach collection="photos" item="p" separator=",">
-                (#{id}, #{p.oriPhoto})
+                (#{id}, #{p.oriPhoto}, #{p.photo})
             </foreach>
         </if>
     </insert>
@@ -38,9 +38,9 @@
         update member set name=#{name}, address1=#{address1}, phone=#{phone}
         where id=#{id};
         <if test="photos != null ">
-            insert into photos(id, oriPhoto) values
+            insert into photos(id, oriPhoto, photo) values
             <foreach collection="photos" item="p" separator=",">
-                (#{id}, #{p.oriPhoto})
+                (#{id}, #{p.oriPhoto}, #{p.photo})
             </foreach>
         </if>
     </update>
@@ -51,7 +51,7 @@
 
 
     <delete id="delete_files" parameterType="java.util.List">
-        delete from photos where oriPhoto in
+        delete from photos where photo in
         <foreach collection="list" item="file"  open="(" close=")" separator=",">
             #{file}
         </foreach>

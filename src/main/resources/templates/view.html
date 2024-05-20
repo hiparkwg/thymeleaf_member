@@ -17,9 +17,9 @@
             </ul>
             <div class="photo_list">
                 <div th:each="p : ${vo.photos}" >
-                    <img src="${p.photo}" width="150px" height="200px" 
-                        th:class="${(vo.photo eq p.oriPhoto)? 'repre':''}"
-                        th:onClick="change(this, [[${p.oriPhoto}]])">
+                    <img th:src="|upload/${p.photo}|" width="150px" height="200px" 
+                        th:class="${(vo.photo eq p.photo)? 'repre':''}"
+                        th:onClick="change(this, [[${p.photo}]])">
                 </div>
             </div>
             

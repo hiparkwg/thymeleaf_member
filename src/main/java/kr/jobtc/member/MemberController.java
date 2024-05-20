@@ -1,8 +1,10 @@
 package kr.jobtc.member;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -16,6 +18,8 @@ import org.springframework.web.servlet.ModelAndView;
 public class MemberController {
     @Autowired
     MemberDao dao;
+
+    static String uploadPath = "C:/myjob/member/src/main/resources/static/upload/";
 
     @RequestMapping(path = "/")
     public ModelAndView index() {
@@ -48,11 +52,25 @@ public class MemberController {
         List<PhotoVo> photos = new ArrayList<>();
 
         if (photo != null ) {
-
+            UUID uuid = null;
+            String sysFile = "";
             for (MultipartFile f : photo) {
                 if (f.getOriginalFilename().equals(""))
                     continue;
+
+                // 파일 업로드
+                uuid = UUID.randomUUID();
+                sysFile = String.format("%s-%s", uuid, f.getOriginalFilename());
+                File saveFile = new File(uploadPath+sysFile);
+                try{
+                    f.transferTo(saveFile);
+                }catch(Exception ex){
+                    ex.printStackTrace();
+                }
+
                 PhotoVo v = new PhotoVo();
+                vo.setPhoto(sysFile);
+                v.setPhoto(sysFile);
                 v.setOriPhoto(f.getOriginalFilename());
                 photos.add(v);
             }
@@ -102,14 +120,27 @@ public class MemberController {
         ModelAndView mv = new ModelAndView();
         List<PhotoVo> photos = new ArrayList<>();
 
-        System.out.println(Arrays.toString(delFiles));
-
+        UUID uuid=null;
+        String sysFile = null;
         if (photo != null && photo.size() > 0) {
 
             for (MultipartFile f : photo) {
                 if (f.getOriginalFilename().equals(""))
                     continue;
                 PhotoVo v = new PhotoVo();
+                uuid = UUID.randomUUID();
+                sysFile = String.format("%s-%s", uuid, f.getOriginalFilename());
+
+                File saveFile = new File(uploadPath+sysFile);
+                try{
+                    f.transferTo(saveFile);
+                }catch(Exception ex){
+                    ex.printStackTrace();
+                }
+
+
+                vo.setPhoto(sysFile);
+                v.setPhoto(sysFile);
                 v.setOriPhoto(f.getOriginalFilename());
                 photos.add(v);
             }
